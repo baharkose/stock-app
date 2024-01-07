@@ -27,19 +27,20 @@ const Login = () => {
     // - neden yazınca gelmedi otomatik erro burda bizim ayrıca bişey daha kollanmamız lazım onBlur. Muinin default hata mesajı kırmızı
     email: string().email().required("please enter a email"),
     password: string()
-      .required("please enter a password")
-      .min(8, "password must include at least 8 character")
-      .max(16, "password can include at last 16 character")
-      .matches(/\d+/, "password must include at least 1 number")
-      .matches(/[a-z]/, "password en az bir küçük harf içermelidir")
-      .matches(/[A-Z]/, "password en az bir büyük harf içermelidir")
+      .required("password must contain at least 8 character")
+      .min(8, "the password should not be more than 16 characters long")
+      .matches(/\d+/, "password must contain at least 1 number")
+      .matches(/[a-z]/, "password must contain at least one lowercase letter")
+      .matches(/[A-Z]/, "password must contain at least one uppercase letter")
       .matches(
         /[@$!%*?&]/,
-        "password en az @$!%*?&'den birini içeren bir özel karakter içermelidir"
+        "the password must include at least one special character from @$!%?&"
       ),
 
     // - regex nasıl yaparız?
   });
+
+  //* WHAT IS FORMIK & YUP?
   //! Formik, React uygulamalarında form yönetimini kolaylaştırmak için tasarlanmış bir kütüphanedir. Formik, form state yönetimini, değerlerin izlenmesini, hata mesajlarının görüntülenmesini ve formun sunucuya gönderilmesini kolaylaştıran bir dizi özelliği sağlar. Aynı zamanda formun değerlerini takip etmek, formun durumunu kontrol etmek ve formların yapısını düzenlemek için kullanışlı yardımcı işlevler sunar.
 
   //? Yup ise form doğrulama kurallarını tanımlamak için kullanılan bir şema tabanlı doğrulama kütüphanesidir. Yup, formun alanlarını, gereklilikleri, veri türlerini, uzunluk sınırlamalarını, özel doğrulama işlevlerini vb. tanımlamak için kullanılır. Formun giriş değerlerini bu kurallara göre doğrular ve hata mesajları üretir.
@@ -79,6 +80,7 @@ const Login = () => {
           >
             Login
           </Typography>
+          {/* formikimizi yazıyoruz form alanımıza ve form alanlarımızı formik ile sarmalıyoruz. 3 değer alır initialvalue, koşullar, onSubmit */}
           <Formik
             initialValues={{ email: "", password: "" }}
             validationSchema={loginSchema}
@@ -97,8 +99,8 @@ const Login = () => {
               // login(values); useHook olduğu için çağırma değişti
               // - nerden alıcaz verileri valuesun içerisinden. içeride email ve password var.
               // - formiğin içinde kendi hazır tanımlı fonksiyonları var biz bunları kullanabiliyoruz.
-              // resetForm();
-              // setSubmitting(false);
+              resetForm();
+              setSubmitting(false);
               // - isSubmitting adında bir değişken var otomaik true false otomatik true submit olunca falsea kuruluyor. Bunu direk de kulanabiliriz
             }}
             // -3 üçüncü parametre values. Form elementi submit edildiğinde çalışacak olan alan. Burda bizim apiye bir login(post isteği atmamız lazım) Burada veri yollama isteği var.

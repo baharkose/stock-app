@@ -7,7 +7,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
-import { Formik } from "formik";
+import { Formik, Form } from "formik";
 import { object, string, number, date, InferType } from "yup";
 
 import TextField from "@mui/material/TextField";
@@ -15,13 +15,22 @@ import TextField from "@mui/material/TextField";
 const Register = () => {
   const navigate = useNavigate();
 
-  // let registerSchema = object({
-  //   username: string(),
-  //   firstName: string(),
-  //   last_name: string(),
-  //   email: string(),
-  //   password: string(),
-  // });
+  let registerSchema = object({
+    username: string().required("please enter a username"),
+    firstName: string().required("please enter a first name"),
+    last_name: string().required("please enter a last name"),
+    email: string().email().required("please enter a mail"),
+    password: string()
+      .required("password must contain at least 8 character")
+      .min(8, "the password should not be more than 16 characters long")
+      .matches(/\d+/, "password must contain at least 1 number")
+      .matches(/[a-z]/, "password must contain at least one lowercase letter")
+      .matches(/[A-Z]/, "password must contain at least one uppercase letter")
+      .matches(
+        /[@$!%*?&]/,
+        "the password must include at least one special character from @$!%?&"
+      ),
+  });
 
   return (
     <Container maxWidth="lg">
@@ -60,50 +69,74 @@ const Register = () => {
           >
             Register
           </Typography>
-
-          <Box
-            component="form"
-            sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+          <Formik
+            initialValues={{
+              username: "",
+              password: "",
+              email: "",
+              firstName: "",
+              lastName: "",
+            }}
+            validationSchema={registerSchema}
+            onSubmit={(values, { resetForm, setSubmitting }) => {
+              resetForm();
+              setSubmitting(false);
+            }}
           >
-            <TextField
-              label="User Name"
-              name="username"
-              id="userName"
-              type="text"
-              variant="outlined"
-            />
-            <TextField
-              label="First Name"
-              name="first_name"
-              id="firstName"
-              type="text"
-              variant="outlined"
-            />
-            <TextField
-              label="Last Name"
-              name="last_name"
-              id="last_name"
-              type="text"
-              variant="outlined"
-            />
-            <TextField
-              label="Email"
-              name="email"
-              id="email"
-              type="email"
-              variant="outlined"
-            />
-            <TextField
-              label="password"
-              name="password"
-              id="password"
-              type="password"
-              variant="outlined"
-            />
-            <Button type="submit" variant="contained" size="large">
-              Submit
-            </Button>
-          </Box>
+            {({
+              handleChange,
+              values,
+              initialTouched,
+              initialErrors,
+              handleBlur,
+            }) => (
+              <Form>
+                <Box
+                  // component="form"
+                  sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+                >
+                  <TextField
+                    label="User Name"
+                    name="username"
+                    id="userName"
+                    type="text"
+                    variant="outlined"
+                  />
+                  <TextField
+                    label="First Name"
+                    name="firstName"
+                    id="firstName"
+                    type="text"
+                    variant="outlined"
+                  />
+                  <TextField
+                    label="Last Name"
+                    name="lastName"
+                    id="lastName"
+                    type="text"
+                    variant="outlined"
+                  />
+                  <TextField
+                    label="Email"
+                    name="email"
+                    id="email"
+                    type="email"
+                    variant="outlined"
+                  />
+                  <TextField
+                    label="password"
+                    name="password"
+                    id="password"
+                    type="password"
+                    variant="outlined"
+                  />
+                  <Button type="submit" variant="contained" size="large">
+                    Submit
+                  </Button>
+                </Box>
+              </Form>
+            )}
+          </Formik>
 
           <Box sx={{ textAlign: "center", mt: 2 }}>
             <Link to="/">Do you have an account?</Link>
