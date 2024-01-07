@@ -25,10 +25,11 @@ const Login = () => {
   // - 10 yupı import ettik yapın sayfasından burayı aldık. Object diye bir referans fonksyionu var alttakiler onun keyleri aslında
   let loginSchema = object({
     // - neden yazınca gelmedi otomatik erro burda bizim ayrıca bişey daha kollanmamız lazım onBlur. Muinin default hata mesajı kırmızı
-    email: string().email().required("please enter a email"),
+    email: string().email().required("please enter an email"),
     password: string()
       .required("password must contain at least 8 character")
-      .min(8, "the password should not be more than 16 characters long")
+      .min(8, "the password should not be at least 8 characters long")
+      .max(16, "the password should not be more than 16 characters long")
       .matches(/\d+/, "password must contain at least 1 number")
       .matches(/[a-z]/, "password must contain at least one lowercase letter")
       .matches(/[A-Z]/, "password must contain at least one uppercase letter")
