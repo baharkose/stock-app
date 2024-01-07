@@ -80,27 +80,45 @@ const Login = () => {
             validationSchema={loginSchema}
             // - harici şema için bunu tercih ettik
             onSubmit={(values, { resetForm, setSubmitting }) => {
-              login(values)
+              login(values);
+
+              //+ 10 login bizden bir parametre bekliyor.  Nerede bu veriler values'un içerisindeki verileri direk oradan alabiliriz. Valuesun içersinde zaten başka bişey yok.
+
+              //+ 11 bu işlemleri yaptıktan sonra login işlemleri bize gelicek ve bize bir token gelicek. Şimdi yönlendirme hata vs işlemlerimizi yapalım -> services'e
 
               // - TODO navigasyon - toast işlemleri - veri kaydetme(global alana) - form silme. actionsun içerisinde aslında bir dürü özellik var. ResetForm, formikHelper
+              //! neden login işlemi post get değil?
+              //* burada bir veri gönderme işlemi var. email ve password
               //- login için yazdığımız dosyayı çağırıyoruz.
               // login(values); useHook olduğu için çağırma değişti
               // - nerden alıcaz verileri valuesun içerisinden. içeride email ve password var.
-              // actions.resetForm()
-              // actions.setSubmitting(false)
+              // - formiğin içinde kendi hazır tanımlı fonksiyonları var biz bunları kullanabiliyoruz.
+              resetForm();
+              setSubmitting(false);
               // - isSubmitting adında bir değişken var otomaik true false otomatik true submit olunca falsea kuruluyor. Bunu direk de kulanabiliriz
             }}
             // -3 üçüncü parametre values. Form elementi submit edildiğinde çalışacak olan alan. Burda bizim apiye bir login(post isteği atmamız lazım) Burada veri yollama isteği var.
           >
-            {/* jsx alanında bir js aç bir callback bize form elementini döndürn 4- şimdi formu yazalım {() => ()} jsx alanı 
+            {/* //- jsx alanında bir js aç bir callback bize form elementini döndürn 4- şimdi formu yazalım {() => ()} jsx alanı 
             // Formikten gelen
 
               // is identical to this...
               <form onReset={handleReset} onSubmit={handleSubmit} {...props} />
             
             */}
-            {/* aşağıda kullancağımız yapıları ne yaptık çağırdık. formik yazmış kendisi biz sadece çağırdık.  */}
+            {/* aşağıda kullancağımız yapıları ne yaptık çağırdık. formik yazmış kendisi biz sadece çağırdık. 
+            //- formumuzu bir callback içerisinde return ediyoruz. 
+            {() => <Form></Form>}
+            
+            
+            
+
+
+            //+ 1 login işlemleri birden fazla olacğı için derli toplu görünebilmesi için service adında bir klasör oluşturup orada login işlemlerimizi halledebileceğiz. Bunun için customHook oluşturmamız gerekli. Şimdi service klasörü altındaki autApi klasörümüze gidelim.
+            
+            */}
             {({ handleChange, values, touched, errors, handleBlur }) => (
+              //- values bizim inital statelerimiz.
               // * burdaki error validasyon şemasına göre çalışıyor. errors bi obje içerisine email ve password almış. emailde error varsa errors.email vs. şeklinde yakalayabiliyoruz
               // - dikkat edilmesi gereken husus inputlarda name attirubetında kullanılan isimle intialValues da belirlenen state ismi eşleşmek zorunda. Formik in handlechange metodu name attribuetına göre doldurum yapıyor.
               <Form>
@@ -126,6 +144,7 @@ const Login = () => {
                     //- mui textfield kullanmadığımzda hata mesajını göstermek için
                     //- {/* <span>{touched.username && errors.username}</span> */}
                     onBlur={handleBlur}
+                    // - inputtan ayrıldığımızda hemen uyarı vermesi için
                     // helperText={touched.email && errors.email}
                     // helperText={touched.password && errors.password}
                   />
