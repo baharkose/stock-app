@@ -92,7 +92,7 @@ const Login = () => {
 
               //+ 11 bu işlemleri yaptıktan sonra login işlemleri bize gelicek ve bize bir token gelicek. Şimdi yönlendirme hata vs işlemlerimizi yapalım -> services'e
 
-              // - TODO navigasyon - toast işlemleri - veri kaydetme(global alana) - form silme. actionsun içerisinde aslında bir dürü özellik var. ResetForm, formikHelper
+              // - TODO navigasyon - toast işlemleri - veri kaydetme(global alana) - form silme. actionsun içerisinde aslında bir sürü özellik var. ResetForm, formikHelper
               //! neden login işlemi post get değil?
               //* burada bir veri gönderme işlemi var. email ve password
               //- login için yazdığımız dosyayı çağırıyoruz.

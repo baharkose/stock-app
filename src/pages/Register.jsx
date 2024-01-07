@@ -12,14 +12,18 @@ import { object, string, number, date, InferType } from "yup";
 
 import TextField from "@mui/material/TextField";
 import { TouchAppRounded } from "@mui/icons-material";
+// - *1 login işlemleri için custom hookumuzu çağırdık
+import useAuthApiCall from "../service/useAuthApiCall";
 
 const Register = () => {
+  // - *2 kullanacağımız fonksiyonu çağırdık.
+  const { register } = useAuthApiCall();
   const navigate = useNavigate();
 
   let registerSchema = object({
     username: string().required("please enter a username"),
     firstName: string().required("please enter a first name"),
-    last_name: string().required("please enter a last name"),
+    lastName: string().required("please enter a last name"),
     email: string().email().required("please enter a mail"),
     password: string()
       .required("password must contain at least 8 character")
@@ -76,12 +80,22 @@ const Register = () => {
               password: "",
               email: "",
               firstName: "",
+              firstName: "",
               lastName: "",
             }}
             validationSchema={registerSchema}
-            onSubmit={(values, { resetForm, setSubmitting }) => {
+            onSubmit={async (values, { resetForm, setSubmitting }) => {
+              //- TODO navigasyon - toast işlemleri - veri kaydetme global alana - form silme
+
+              register(values);
               resetForm();
+
               setSubmitting(false);
+              // - ilk olarak custom hookumuzda register fonksiyonumuzu yazalım.
+
+              // - hookumuzdan gelen registerı çağırdık. Register bir parametre bekliyor bu parametreler nerden gelecek values'ın içerisinden
+
+              //- şimdi hooka gidip registerı düzenleyelim. öncesinde sliceımızı düzenleyelim.
             }}
           >
             {({ handleChange, values, touched, errors, handleBlur }) => (
@@ -99,25 +113,23 @@ const Register = () => {
                     // - formik
                     value={values.username}
                     onChange={handleChange}
-                    error={TouchAppRounded.email && Boolean(errors.email)}
-                    helperText={errors.email}
+                    error={touched.username && Boolean(errors.username)}
+                    helperText={errors.username}
                     onBlur={handleBlur}
                   />
                   <TextField
                     label="First Name"
                     name="firstName"
                     id="firstName"
-                    firstName
                     type="text"
                     variant="outlined"
                     value={values.firstName}
                     onChange={handleChange}
-                    error={
-                      TouchAppRounded.firstName && Boolean(errors.firstName)
-                    }
+                    error={touched.firstName && Boolean(errors.firstName)}
                     helperText={errors.firstName}
                     onBlur={handleBlur}
                   />
+
                   <TextField
                     label="Last Name"
                     name="lastName"
@@ -127,7 +139,7 @@ const Register = () => {
                     // - formik
                     value={values.lastName}
                     onChange={handleChange}
-                    error={TouchAppRounded.lastName && Boolean(errors.lastName)}
+                    error={touched.lastName && Boolean(errors.lastName)}
                     helperText={errors.lastName}
                     onBlur={handleBlur}
                   />
@@ -140,7 +152,7 @@ const Register = () => {
                     // - formik
                     value={values.email}
                     onChange={handleChange}
-                    error={TouchAppRounded.email && Boolean(errors.email)}
+                    error={touched.email && Boolean(errors.email)}
                     helperText={errors.email}
                     onBlur={handleBlur}
                   />
@@ -154,7 +166,7 @@ const Register = () => {
                     // - formik
                     value={values.password}
                     onChange={handleChange}
-                    error={TouchAppRounded.password && Boolean(errors.password)}
+                    error={touched.password && Boolean(errors.password)}
                     helperText={errors.password}
                     onBlur={handleBlur}
                   />

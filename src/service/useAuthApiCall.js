@@ -2,7 +2,12 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 import { useDispatch } from "react-redux";
-import { fetchFail, fetchStart, loginSuccess } from "../features/authSlice";
+import {
+  fetchFail,
+  fetchStart,
+  loginSuccess,
+  registerSuccess,
+} from "../features/authSlice";
 
 //+ 2 buradaki amacımız bizim login, logout, register gibi istekler yazmak.
 //+ 3 önce bir async login fonksiyonu ve axios isteği oluştrualım
@@ -44,19 +49,35 @@ const useAuthApiCall = () => {
       console.log(data.data);
       //+ 22 şimdi bu veriyi nasıl return edeceğiz?  Bunu nasıl yapmamız lazım global state ile buradaki veriyi global state'e aktarmak istiyoruz. Her yerde kullanabilelim. Simdi sliceımızı hazırlayalım. -> authSlice'a
       // + 13 başarılı mesajı ver. -> stocka yönlendir.
-      toastSuccessNotify("login işlemi başarılı");
+      toastSuccessNotify("login is succesful");
       //+30 tryın içinde data gelmiş demekki login başarılı o zaman başarılı dispatchini yayınlıyoruz.
       //+ 34 apiden gelen veriyi gönderiyoruz. apiden gelen veriyo loginSuccess'e pass geç. O veri nereye gidiyo useAuthSlice'a
       navigate("/stock");
     } catch (error) {
       dispatch(fetchFail);
       console.log(error);
-      toastErrorNotify(`${error.message} login işlemi başarısız oldu`);
+      toastErrorNotify(`${error.message} login is failed`);
       // + 31 login başarısız mı oldu o zaman başarısız dispatch işlemini bana çağır. Şimdi işlemler nasıl değişecek ona bakalım. -> authSlice'a
     }
   };
 
-  const register = () => {};
+  const register = async (userInfo) => {
+    // - burada bir post işlemi var. registerın başarılı ve başarısız olma durumları bunları tanımlayalım. Register başarılı olursa gloabal statee veriler gitmeli.
+
+    dispatch(fetchStart());
+    try {
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/users/`,
+        userInfo
+      );
+      dispatch(registerSuccess(data));
+      toastSuccessNotify("Register is succesful");
+      navigate("/stock");
+    } catch (error) {
+      dispatch(fetchFail());
+      toastErrorNotify(`${error.message} register is failed`);
+    }
+  };
   const logout = () => {};
 
   return { login, register, logout };
