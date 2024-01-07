@@ -12,9 +12,13 @@ import { Formik, Form } from "formik";
 import * as yup from "yup";
 import { object, string, number, date, InferType } from "yup";
 import useAuthApiCall from "../service/useAuthApiCall";
+
 // - önce kendisini hookun
 //- sonrada içieriisndeki logini çıakrız
-// import { login } from "../service/useAuthApiCall";
+
+//+ 19 logini hook içerisinde yazdığımız için artık import şeklimiz de değişti
+//+ 20 import ederken önce hook adını çağırıyoruz. import useAuthApiCall diyebiliriz ama export default olduğu için burada istediğimiz ismi ve verebiliriz.
+//+ 21 hookumuzu çağırdıktan sonra componentn içerisinde const {login} = useAuthCalls() diye de fonksiyonumuzu çağırabiliriz. Kullanım bu şekilde.
 
 const Login = () => {
   const { login } = useAuthApiCall();
@@ -110,10 +114,6 @@ const Login = () => {
             //- formumuzu bir callback içerisinde return ediyoruz. 
             {() => <Form></Form>}
             
-            
-            
-
-
             //+ 1 login işlemleri birden fazla olacğı için derli toplu görünebilmesi için service adında bir klasör oluşturup orada login işlemlerimizi halledebileceğiz. Bunun için customHook oluşturmamız gerekli. Şimdi service klasörü altındaki autApi klasörümüze gidelim.
             
             */}
@@ -167,12 +167,10 @@ const Login = () => {
               </Form>
             )}
           </Formik>
-
           <Box sx={{ textAlign: "center", mt: 2 }}>
             <Link to="/register">Do you have not an account?</Link>
           </Box>
         </Grid>
-
         <Grid item xs={10} sm={7} md={6}>
           <Container>
             <img src={image} alt="img" />
