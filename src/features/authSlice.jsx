@@ -30,7 +30,6 @@ const authSlice = createSlice({
 
     //+ 27 işlem başarı
     loginSuccess: (state, { payload }) => {
-      
       state.loading = false;
       //+ 33 işlem başladığında payloadın içerisinden veri nasıl gelecek on abi bakalım. Şimdi istek attığımızda login successın bi payloadı olması lazım ki onu gönderelim. Peki bizim verilerimiz neler apiden gelen bilgiler. O yüzden bizim loginSuccess içerisinde datayı pass vermemiz lazım. -> useAuth hookuna
 
@@ -52,12 +51,23 @@ const authSlice = createSlice({
       // - burayı bi kontrol et.
       state.token = payload.token;
     },
+    logoutSuccess: (state) => {
+      state.user = "";
+      state.loading = false;
+      state.error = false;
+      state.token = "";
+    },
   },
 });
 
 // + 28 bunları ne yaptık? dışarıya export ettik. Şimdi istek nerde atılıyor UI tarafında hookun içerisinde o nedenle oraya gidip istek atma dispatchini yayınlıyoruz.
-export const { fetchStart, loginSuccess, fetchFail, registerSuccess } =
-  authSlice.actions;
+export const {
+  fetchStart,
+  loginSuccess,
+  fetchFail,
+  registerSuccess,
+  logoutSuccess,
+} = authSlice.actions;
 export default authSlice.reducer;
 
 // Token (Belirteç/Jeton): Tek kullanımlık yaşam süresi olan hashlenmiş yada şifrelenmiş bir bilgi içeren metinlerdir.

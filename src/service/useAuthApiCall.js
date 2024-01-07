@@ -7,6 +7,7 @@ import {
   fetchStart,
   loginSuccess,
   registerSuccess,
+  logoutSuccess,
 } from "../features/authSlice";
 
 //+ 2 buradaki amacımız bizim login, logout, register gibi istekler yazmak.
@@ -78,7 +79,10 @@ const useAuthApiCall = () => {
       toastErrorNotify(`${error.message} register is failed`);
     }
   };
-  const logout = () => {};
+  const logout = () => {
+    dispatch(logoutSuccess());
+    toastSuccessNotify("Logout successfully");
+  };
 
   return { login, register, logout };
   // - bu şekilde export edilir.
