@@ -11,6 +11,7 @@ import { Formik, Form } from "formik";
 import { object, string, number, date, InferType } from "yup";
 
 import TextField from "@mui/material/TextField";
+import { TouchAppRounded } from "@mui/icons-material";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -83,13 +84,7 @@ const Register = () => {
               setSubmitting(false);
             }}
           >
-            {({
-              handleChange,
-              values,
-              initialTouched,
-              initialErrors,
-              handleBlur,
-            }) => (
+            {({ handleChange, values, touched, errors, handleBlur }) => (
               <Form>
                 <Box
                   // component="form"
@@ -101,13 +96,27 @@ const Register = () => {
                     id="userName"
                     type="text"
                     variant="outlined"
+                    // - formik
+                    value={values.username}
+                    onChange={handleChange}
+                    error={TouchAppRounded.email && Boolean(errors.email)}
+                    helperText={errors.email}
+                    onBlur={handleBlur}
                   />
                   <TextField
                     label="First Name"
                     name="firstName"
                     id="firstName"
+                    firstName
                     type="text"
                     variant="outlined"
+                    value={values.firstName}
+                    onChange={handleChange}
+                    error={
+                      TouchAppRounded.firstName && Boolean(errors.firstName)
+                    }
+                    helperText={errors.firstName}
+                    onBlur={handleBlur}
                   />
                   <TextField
                     label="Last Name"
@@ -115,6 +124,12 @@ const Register = () => {
                     id="lastName"
                     type="text"
                     variant="outlined"
+                    // - formik
+                    value={values.lastName}
+                    onChange={handleChange}
+                    error={TouchAppRounded.lastName && Boolean(errors.lastName)}
+                    helperText={errors.lastName}
+                    onBlur={handleBlur}
                   />
                   <TextField
                     label="Email"
@@ -122,6 +137,12 @@ const Register = () => {
                     id="email"
                     type="email"
                     variant="outlined"
+                    // - formik
+                    value={values.email}
+                    onChange={handleChange}
+                    error={TouchAppRounded.email && Boolean(errors.email)}
+                    helperText={errors.email}
+                    onBlur={handleBlur}
                   />
                   <TextField
                     label="password"
@@ -129,6 +150,13 @@ const Register = () => {
                     id="password"
                     type="password"
                     variant="outlined"
+                    password
+                    // - formik
+                    value={values.password}
+                    onChange={handleChange}
+                    error={TouchAppRounded.password && Boolean(errors.password)}
+                    helperText={errors.password}
+                    onBlur={handleBlur}
                   />
                   <Button type="submit" variant="contained" size="large">
                     Submit
