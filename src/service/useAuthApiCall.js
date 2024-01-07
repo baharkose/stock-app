@@ -24,29 +24,35 @@ const useAuthApiCall = () => {
 
   const login = async (userInfo) => {
     // + 29 burada fetch start işlemini başlat. Ona göre bir dispatch yayınlıyoruz. Bunun için Slice'ı import ediyoruz.
-    //+ EZBER:  30 dispatch yayınlamak için import yapmamız lazım.
 
+    //+ EZBER:  30 dispatch yayınlamak için import yapmamız lazım.
     dispatch(fetchStart());
+
     try {
+      //+ veriyi çıkarırken axiosun yapısından dolayı data.data şeklinde veriyi almamız lazım. ya da aşağıdaki gibi de yazabiliriz.
+
+      // + axios u yaDiginiz yerde dest yapin const {data} =
+
       const data = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/auth/login`,
         userInfo
       );
+
+      //+ veriyi çıkarırken axiosun yapısından dolayı data.data şeklinde veriyi almamız lazım. ya da aşağıdaki gibi de yazabiliriz.
+
+      dispatch(loginSuccess(data.data));
       console.log(data.data);
       //+ 22 şimdi bu veriyi nasıl return edeceğiz?  Bunu nasıl yapmamız lazım global state ile buradaki veriyi global state'e aktarmak istiyoruz. Her yerde kullanabilelim. Simdi sliceımızı hazırlayalım. -> authSlice'a
-
       // + 13 başarılı mesajı ver. -> stocka yönlendir.
       toastSuccessNotify("login işlemi başarılı");
       //+30 tryın içinde data gelmiş demekki login başarılı o zaman başarılı dispatchini yayınlıyoruz.
       //+ 34 apiden gelen veriyi gönderiyoruz. apiden gelen veriyo loginSuccess'e pass geç. O veri nereye gidiyo useAuthSlice'a
-      dispatch(loginSuccess(data));
-
       navigate("/stock");
     } catch (error) {
-      console.log(error);
-      toastErrorNotify("login işlemi başarısız oldu");
-      // + 31 login başarısız mı oldu o zaman başarısız dispatch işlemini bana çağır. Şimdi işlemler nasıl değişecek ona bakalım. -> authSlice'a
       dispatch(fetchFail);
+      console.log(error);
+      toastErrorNotify(`${error.message} login işlemi başarısız oldu`);
+      // + 31 login başarısız mı oldu o zaman başarısız dispatch işlemini bana çağır. Şimdi işlemler nasıl değişecek ona bakalım. -> authSlice'a
     }
   };
 

@@ -97,8 +97,8 @@ const Login = () => {
               // login(values); useHook olduğu için çağırma değişti
               // - nerden alıcaz verileri valuesun içerisinden. içeride email ve password var.
               // - formiğin içinde kendi hazır tanımlı fonksiyonları var biz bunları kullanabiliyoruz.
-              resetForm();
-              setSubmitting(false);
+              // resetForm();
+              // setSubmitting(false);
               // - isSubmitting adında bir değişken var otomaik true false otomatik true submit olunca falsea kuruluyor. Bunu direk de kulanabiliriz
             }}
             // -3 üçüncü parametre values. Form elementi submit edildiğinde çalışacak olan alan. Burda bizim apiye bir login(post isteği atmamız lazım) Burada veri yollama isteği var.
@@ -132,6 +132,7 @@ const Login = () => {
                     id="email"
                     type="email"
                     variant="outlined"
+                    autoComplete="true"
                     // - formikden gelecekler
                     value={values.email}
                     onChange={handleChange}
@@ -154,6 +155,7 @@ const Login = () => {
                     id="password"
                     type="password"
                     variant="outlined"
+                    autoComplete="true"
                     value={values.password}
                     onChange={handleChange}
                     error={touched.password && Boolean(errors.password)}
