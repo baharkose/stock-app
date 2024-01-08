@@ -17,7 +17,6 @@ const initialState = {
 
 const authSlice = createSlice({
   name: "auth",
-
   initialState,
   reducers: {
     // - UI tarafında istek atmaya başlayınca çağıracağımız fonksiyonlar.
