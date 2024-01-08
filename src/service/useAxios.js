@@ -5,7 +5,7 @@ const useAxios = () => {
   const { token } = useSelector((state) => state.auth);
   const axiosWithToken = axios.create({
     baseURL: `${process.env.REACT_APP_BASE_URL}`,
-    timeout: 1000,
+    // timeout: 1000,
     headers: { Authorization: `Token ${token}` },
   });
 
@@ -13,7 +13,7 @@ const useAxios = () => {
     baseURL: `${process.env.REACT_APP_BASE_URL}`,
   });
 
-  return { axiosWithToken };
+  return { axiosWithToken , axiosPublic};
 };
 
 export default useAxios;

@@ -9,7 +9,7 @@ import {
   registerSuccess,
   logoutSuccess,
 } from "../features/authSlice";
-import useAxios from "./useAxiosInts";
+import useAxios from "./useAxios";
 
 //+ 2 buradaki amacımız bizim login, logout, register gibi istekler yazmak.
 //+ 3 önce bir async login fonksiyonu ve axios isteği oluştrualım
@@ -28,7 +28,7 @@ const useAuthApiCall = () => {
   // - export olmaz return ile olur.
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { axiosWithToken } = useAxios();
+  const { axiosWithToken, axiosPublic } = useAxios();
 
   const login = async (userInfo) => {
     // + 29 burada fetch start işlemini başlat. Ona göre bir dispatch yayınlıyoruz. Bunun için Slice'ı import ediyoruz.
@@ -69,10 +69,12 @@ const useAuthApiCall = () => {
 
     dispatch(fetchStart());
     try {
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/users/`,
-        userInfo
-      );
+      // const { data } = await axios.post(
+      //   `${process.env.REACT_APP_BASE_URL}/users/`,
+      //   userInfo
+      // );
+      // - hep aynı url vs yazdığımız için ayrıca hook yazdık.
+      const { data } = await axiosPublic.post("/users/", userInfo);
       dispatch(registerSuccess(data));
       toastSuccessNotify("Register is succesful");
       navigate("/stock");
@@ -86,7 +88,10 @@ const useAuthApiCall = () => {
       await axiosWithToken("auth/logout/");
       dispatch(logoutSuccess());
       toastSuccessNotify("Logout successfully");
-    } catch (error) {}
+    } catch (error) {
+      dispatch(fetchFail());
+      toastErrorNotify("Logout is failed");
+    }
   };
 
   return { login, register, logout };
