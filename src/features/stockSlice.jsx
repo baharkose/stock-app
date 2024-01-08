@@ -1,11 +1,19 @@
-import React from 'react'
+import React from "react";
+import { createSlice } from "@reduxjs/toolkit";
 
-const stockSlice = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+const initialState = {
+  firms: [],
+  products: [],
+  purchases: [],
+  brands: [],
+  firms: [],
+};
 
-export default stockSlice
+const stockSlice = createSlice({
+  name: "stock",
+  initialState,
+  reducers: {
+    
+  },
+});
+export default stockSlice;
