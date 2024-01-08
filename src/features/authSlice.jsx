@@ -30,7 +30,7 @@ const authSlice = createSlice({
     //+ 27 işlem başarı
     loginSuccess: (state, { payload }) => {
       state.loading = false;
-      //+ 33 işlem başladığında payloadın içerisinden veri nasıl gelecek on abi bakalım. Şimdi istek attığımızda login successın bi payloadı olması lazım ki onu gönderelim. Peki bizim verilerimiz neler apiden gelen bilgiler. O yüzden bizim loginSuccess içerisinde datayı pass vermemiz lazım. -> useAuth hookuna
+      //+ 33 işlem başladığında payloadın içerisinden veri nasıl gelecek ona bi bakalım. Şimdi istek attığımızda login successın bi payloadı olması lazım ki onu gönderelim. Peki bizim verilerimiz neler apiden gelen bilgiler. O yüzden bizim loginSuccess içerisinde datayı pass vermemiz lazım. -> useAuth hookuna
 
       //+ 34 + bu verilerin basamaklandırılmasını login işlemini thunderda görüntüleyerek bulabiliriz.
       state.user = payload.user.username;
