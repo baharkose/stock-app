@@ -71,3 +71,8 @@ export default authSlice.reducer;
 
 // Token (Belirteç/Jeton): Tek kullanımlık yaşam süresi olan hashlenmiş yada şifrelenmiş bir bilgi içeren metinlerdir.
 // API ile iletişimde kullanılan token, kimlik doğrulaması için kullanılan bir tür anahtardır. Genellikle API isteklerini yetkilendirmek ve doğrulamak için kullanılır. Bu token, istemcinin kimliğini doğrulamak ve izin verilen işlemleri gerçekleştirmesine olanak tanır. Tokenlar genellikle güvenlik amacıyla kullanılır ve API istemcisine özgüdür. Başka bir deyişle, doğru token olmadan API ile iletişim kurmak mümkün olmaz. Bu tokenler, genellikle API sağlayıcısı tarafından sağlanır ve yetkilendirme işlemlerinde kullanılır.
+
+
+// -Token (Belirteç/Jeton): Tek kullanımlık yaşam süresi olan hashlenmiş yada şifrelenmiş bir bilgi içeren metinlerdir.
+// API ile iletişimde kullanılan token, kimlik doğrulaması için kullanılan bir tür anahtardır. Genellikle API isteklerini yetkilendirmek ve doğrulamak için kullanılır. Bu token, istemcinin kimliğini doğrulamak ve izin verilen işlemleri gerçekleştirmesine olanak tanır. Tokenlar genellikle güvenlik amacıyla kullanılır ve API istemcisine özgüdür. Başka bir deyişle, doğru token olmadan API ile iletişim kurmak mümkün olmaz. Bu tokenler, genellikle API sağlayıcısı tarafından sağlanır ve yetkilendirme işlemlerinde kullanılır.
+// Api sağlayıcısı isteğine göre Simple Token veya Json Web Token(JWT) kullanabilir. Simple Token(Headers da "Token şifre" şeklinde iletilir genelde) oturum sonlandırılana kadar yani logout isteğine kadar kullanılmaya devam eder. Ama JWT (Headers da "Bearer şifre" şeklinde iletilir genelde) api sağlayıcısının sağladığı süre kadar kullanılmaya devam eder 3 saat, 3gün vb
