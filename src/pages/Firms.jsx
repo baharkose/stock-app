@@ -3,9 +3,11 @@ import { Button, Typography, Box } from "@mui/material";
 import React from "react";
 import AddFirmModal from "../components/AddFirmModal";
 
+
 const Firms = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
+ 
 
   return (
     <Box

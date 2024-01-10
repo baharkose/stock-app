@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useState } from "react";
 import { TextField } from "@mui/material";
+import useFirm from "../service/useFirm";
 
 const style = {
   position: "absolute",
@@ -20,6 +21,7 @@ const style = {
 
 export default function AddFirmModal({ open, setOpen }) {
   const handleClose = () => setOpen(false);
+  const { createFirm } = useFirm();
 
   const [formData, setFormData] = useState({
     firstname: "",
@@ -38,8 +40,9 @@ export default function AddFirmModal({ open, setOpen }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Form verisini işle - örneğin, bir API'ye gönder
+    
     console.log(formData);
+    createFirm(formData)
   };
 
   return (

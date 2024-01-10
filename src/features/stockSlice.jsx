@@ -2,15 +2,19 @@ import React from "react";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  firms: [],
+  firms: "",
   products: [],
   purchases: [],
   brands: [],
+  loading:false,
+  error:false,
 };
 
 const stockSlice = createSlice({
   name: "stock",
   initialState,
-  reducers: {},
+  reducers: {
+    fetchStart: (state) 
+  },
 });
 export default stockSlice;
