@@ -27,7 +27,7 @@ const useFirm = () => {
       dispatch(firmSuccess(data));
     } catch (error) {
       dispatch(fetchFail());
-      toastErrorNotify("Adding is failed");
+      toastErrorNotify(`Adding is failed ${error}`);
       console.log(error);
     }
   };
