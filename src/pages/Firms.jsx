@@ -1,23 +1,26 @@
-import { Button, Typography, Box } from "@mui/material";
-
 import React from "react";
-import AddFirmModal from "../components/AddFirmModal";
+import { Button, Typography, Box } from "@mui/material";
+import { useEffect, useState } from "react";
 
+import AddFirmModal from "../components/AddFirmModal";
+import useStockCalls from "../service/useStockCalls";
 
 const Firms = () => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
- 
+  const { getFirms } = useStockCalls();
+
+  // sayfa yüklendiğinde backendden verileri çek.
+  useEffect(() => {
+    getFirms();
+  }, []);
 
   return (
-    <Box
-      sx={{
-        color: "#ff0000",
-        padding: "20px",
-        textAlign: "center",
-      }}
-    >
-      <Typography> FIRMS</Typography>
+    <Box>
+      <Typography variant="h4" color="error" mb={3}>
+        {" "}
+        FIRMS
+      </Typography>
       <Button
         variant="contained"
         sx={{
@@ -29,7 +32,7 @@ const Firms = () => {
         }}
         onClick={handleOpen}
       >
-        Add Firm
+        New Firm
       </Button>
       <AddFirmModal open={open} setOpen={setOpen} />
     </Box>
