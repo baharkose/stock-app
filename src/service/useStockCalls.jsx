@@ -35,6 +35,8 @@ const useStockCalls = () => {
       const { data } = await axiosWithToken(`/${url}/`)
       const apiData = data.data
       dispatch(getStockSuccess({ apiData, url }))
+      //  burda bir payload yolluyoruz, bu payloadın içerisinde verimizi ve gelen url bilgisi var. İkisini bileştirip bir obje haline getirdik. Adı payload ama içeride başka bilgiler gönderilebilir. Payload burada bir obje olarak gönderiliyor.
+      // veriyi gönderirken url bilgisini de gönder
     } catch (error) {
       dispatch(fetchFail())
       toastErrorNotify(`${url} bilgileri çekilemedi.`)

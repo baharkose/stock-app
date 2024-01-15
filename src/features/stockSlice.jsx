@@ -31,6 +31,7 @@ const stockSlice = createSlice({
     //   state.loading = false
     // },
     getStockSuccess: (state, action) => {
+      // getStockSuccess in içerisindeki action apidata ve urlden oluşuyor. Biz burda 
       state[action.payload.url] = action.payload.apiData
       state.loading = false
     },
