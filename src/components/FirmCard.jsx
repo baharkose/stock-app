@@ -8,8 +8,9 @@ import Typography from "@mui/material/Typography";
 import useStockCalls from "../service/useStockCalls";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { DeleteForeverOutlined } from "@mui/icons-material";
+import { btnStyle } from "../styles/globalStyles";
 
-export default function FirmCard({ firm, handleOpen }) {
+export default function FirmCard({ firm, handleOpen, setInfo }) {
   const { deleteStock } = useStockCalls();
   return (
     <Card
@@ -43,7 +44,12 @@ export default function FirmCard({ firm, handleOpen }) {
         {firm.phone}
       </Typography>
       <CardActions>
-        <DeleteForeverOutlined />
+        <DeleteForeverOutlined
+          sx={btnStyle}
+          onClick={() => {
+           deleteStock("firms", firm?._id)
+          }}
+        />
       </CardActions>
     </Card>
   );
