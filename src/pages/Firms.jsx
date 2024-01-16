@@ -4,13 +4,15 @@ import { useEffect, useState } from "react";
 import useStockCalls from "../service/useStockCalls";
 import { useSelector } from "react-redux";
 import { Grid } from "@mui/material";
+import FirmCard from "../components/FirmCard";
 // import FirmCard from "../components/FirmCard";
 // import FirmModal from "../components/FirmModal";
 
 const Firms = () => {
-  // const { getFirms, getSales } = useStockCalls()
   const { getStocks } = useStockCalls();
   const { firms } = useSelector((state) => state.stock);
+  // console.log(firms);
+  // global state'ten firmaları getirdik.
   const [info, setInfo] = useState({
     name: "",
     phone: "",
@@ -46,7 +48,7 @@ const Firms = () => {
         {/* açma işlemini aktif hale getir. */}
         New Firm
       </Button>
-{/* 
+      {/* 
       <FirmModal
         open={open}
         handleClose={handleClose}
@@ -57,7 +59,7 @@ const Firms = () => {
       <Grid container gap={2} mt={3} justifyContent={"center"}>
         {firms?.map((firm) => (
           <Grid item key={firm._id}>
-            {/* <FirmCard firm={firm} handleOpen={handleOpen} setInfo={setInfo} /> */}
+            <FirmCard firm={firm} handleOpen={handleOpen} setInfo={setInfo} />
           </Grid>
         ))}
       </Grid>
